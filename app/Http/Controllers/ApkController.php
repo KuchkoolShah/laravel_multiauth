@@ -49,27 +49,18 @@ class ApkController extends Controller
           $apkurl = $request->apk_url->getClientOriginalName();
           $request->apk_url->move(public_path('apk_url'), $apkurl);
                           }
-
-                          
-    
      
-        $apk->image = $imageName ;
-        $apk->apk_url = $apkurl;
-       $apk->apk_name=$request->apk_name;
-          
-
-
-        
-  
-      $saved = $apk->save();
-
-        if($saved){
+         $apk->image = $imageName ;
+         $apk->apk_url = $apkurl;
+         $apk->apk_name=$request->apk_name;
+         $saved = $apk->save();
+          if($saved){
             Alert::toast('apk add Successfully!');
-           return redirect()->route('showall.apk');
-       }
-       else{
-         Alert::toast('apk update Successfully!');
-           return back();
+            return redirect()->route('showall.apk');
+         }
+         else{
+         Alert::toast('apk  does not  Successfully!');
+        return back();
 }
     }
 
@@ -117,17 +108,15 @@ class ApkController extends Controller
                             }
             $apk->image = $imageName ;
             $apk->apk_url = $apkurl;
-           $apk->apk_name=$request->apk_name;
-              
-    
-       
-            
-           $saved = $apk->save();
-
-           if($saved)
-              return redirect()->route('showall.apk')->with('message','apk update Successfully!');
-          else
-              return back()->with('message', 'Error Updating apk');
+            $apk->apk_name=$request->apk_name;
+            $saved = $apk->save();
+            if($saved){
+             Alert::toast('apk add Successfully!');
+            return redirect()->route('showall.apk');
+        }
+            else{
+            return back()->with('message', 'Error Updating apk');
+        }
     }
 
     /**
@@ -140,34 +129,31 @@ class ApkController extends Controller
     {
         $apk = Apk::find($id);
         $apk->delete();
-      
-  
         return redirect()->route('showall.apk'); 
     }
 
      public function Show_allapk()
     {
         $apks= Apk::paginate(3);
-        
         return view('admin.Apk.index' , compact('apks'));
     }
- public function increment_form($id)
+
+    public function increment_form($id)
     {
          $apk = Apk::find($id);
-      return view('admin.Apk.apk' , compact('apk'));
+         return view('admin.Apk.apk' , compact('apk'));
     }
 
-public function increment(Request $request  ,$id)
-{
-  $apk= Apk::find($id);
- //$apk = Apk::where('id', $id)->increment('apk_count');
-   $apk->apk_count=$request->apk_count;
-   $apk->increment('apk_count');
-     $saved = $apk->save();
-         
-           return redirect()->route('showall.apk')->with('message','apk update Successfully!');
+        public function increment(Request $request  ,$id)
+        {
+          $apk= Apk::find($id);
+         //$apk = Apk::where('id', $id)->increment('apk_count');
+          $apk->apk_count=$request->apk_count;
+          $apk->increment('apk_count');
+          $saved = $apk->save();
+         return redirect()->route('showall.apk')->with('message','apk update Successfully!');
 
-}
+        }
 
 public function increment_count(Request $request  ,$id)
 {
@@ -181,18 +167,15 @@ public function increment_count(Request $request  ,$id)
 
 }
 
-public function apk_index()
-    {
-        $apk= Apk::all();
-        
-        return view('apkView', compact('apk'));
-    }
+            public function apk_index()
+                {
+                    $apk= Apk::all();
+                return view('apkView', compact('apk'));
+                }
 
 
         public function search(Request $request){
-       
         $search = $request->input('search');
-  
         $posts = Apk::query()
                     ->where('apk_name', 'LIKE', "%{$search}%")
                     ->orWhere('apk_url', 'LIKE', "%{$search}%")

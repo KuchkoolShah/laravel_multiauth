@@ -14,7 +14,8 @@
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
 
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-   
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <meta name="theme-color" content="#7952b3">
 
 
@@ -98,7 +99,12 @@
              Apk
             </a>
           </li>
-          
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('student.index')}}">
+              <span data-feather="file"></span>
+             Ajax-crud
+            </a>
+          </li>
         
         
         </ul>

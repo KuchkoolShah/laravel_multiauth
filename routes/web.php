@@ -14,13 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 
 Auth::routes();
+//Route::get('/' , [App\Http\Controllers\Auth\LoginController::class , 'showLoginForm']);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::group(['prefix'=>'admin'], function () {
     
     Route::group(['middleware'=>'admin.guest'], function () {
@@ -37,8 +39,13 @@ Route::group(['prefix'=>'admin'], function () {
         Route::get('/form/{id}', [App\Http\Controllers\ApkController::class, 'increment_form'])->name('apk.imcrement');
         Route::post('/apk/increment/{id}', [App\Http\Controllers\ApkController::class, 'increment'])->name('apk.countstore');
         Route::get('/search/', [App\Http\Controllers\ApkController::class,'search'])->name('search');
+        Route::resource('/student','Admin\StudentController');
 
     });
 });
+
+
+
+
  //Route::get('/', [App\Http\Controllers\ApkController::class, 'apk_index']);
 Route::Put('/apk/increment_count/{id}', [App\Http\Controllers\ApkController::class, 'increment_count'])->name('apk.countstoreCount');
