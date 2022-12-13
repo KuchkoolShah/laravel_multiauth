@@ -55,11 +55,11 @@ class ApkController extends Controller
          $apk->apk_name=$request->apk_name;
          $saved = $apk->save();
           if($saved){
-            Alert::toast('apk add Successfully!');
-            return redirect()->route('showall.apk');
+            //Alert::toast('apk add Successfully!');
+            return redirect()->route('showall.apk')->with('warning', 'Apk Add Successfully');;
          }
          else{
-         Alert::toast('apk  does not  Successfully!');
+        // Alert::toast('apk  does not  Successfully!');
         return back();
 }
     }

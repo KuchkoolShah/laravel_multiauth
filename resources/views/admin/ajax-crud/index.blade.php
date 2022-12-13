@@ -1,6 +1,22 @@
 @extends('admin.app')
 
 @section('content')
+<style type="text/css">
+  #loader{
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  background: #21242d url('https://cssauthor.com/wp-content/uploads/2018/06/Bouncy-Preloader.gif') no-repeat center;
+  z-index: 999;
+}
+</style>
+
+ <div id="loader">
+    <div></div>
+    <div></div>
+    <div></div>
+   </div>
+
     <div id="app">
 
        
@@ -143,10 +159,33 @@
     </div>
 </div>
 
-
-
 <script>
-    
+    $(document).ready(function () {
+
+        fetchstudent();
+        function fetchstudent() {
+            $.ajax({
+                type: "GET",
+                url: "/admin/fetch-students",
+                dataType: "json",
+                success: function (response) {
+                    console.log(response);
+                    $('tbody').html("");
+                    $.each(response.students, function (key, item) {
+                        $('tbody').append('<tr>\
+                            <td>' + item.id + '</td>\
+                            <td>' + item.name + '</td>\
+                            <td>' + item.course + '</td>\
+                            <td>' + item.email + '</td>\
+                            <td>' + item.phone + '</td>\
+                            <td><button type="button" value="' + item.id + '" class="btn btn-primary editbtn btn-sm">Edit</button></td>\
+                            <td><button type="button" value="' + item.id + '" class="btn btn-danger deletebtn btn-sm">Delete</button></td>\
+                        \</tr>');
+                    });
+                }
+            });
+        }
+
         $(document).on('click', '.add_student', function (e) {
             e.preventDefault();
 
@@ -167,7 +206,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "admin/student",
+                url: "/admin/student",
                 data: data,
                 
                 dataType: "json",
@@ -187,16 +226,72 @@
                         $('#AddStudentModal').find('input').val('');
                         $('.add_student').text('Save');
                         $('#AddStudentModal').modal('hide');
-                      
+                        fetchstudent();
                     }
                 }
             });
 
         });
 
+
+
+
+        $(document).on('click', '.deletebtn', function () {
+            var stud_id = $(this).val();
+            $('#DeleteModal').modal('show');
+            $('#deleteing_id').val(stud_id);
+        });
+
+        $(document).on('click', '.delete_student', function (e) {
+            e.preventDefault();
+
+            $(this).text('Deleting..');
+            var id = $('#deleteing_id').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: "DELETE",
+                url: "/admin/student/" + id,
+                dataType: "json",
+                success: function (response) {
+                    // console.log(response);
+                    if (response.status == 404) {
+                        $('#success_message').addClass('alert alert-success');
+                        $('#success_message').text(response.message);
+                        $('.delete_student').text('Yes Delete');
+                    } else {
+                        $('#success_message').html("");
+                        $('#success_message').addClass('alert alert-success');
+                        $('#success_message').text(response.message);
+                        $('.delete_student').text('Yes Delete');
+                        $('#DeleteModal').modal('hide');
+                        fetchstudent();
+                    }
+                }
+            });
+        });
+
+
+ 
+
+    });
+    var preloader = document.getElementById('loader');
+      function preLoaderHandler(){
+          preloader.style.display = 'none';
+      }
+
 </script>
 
 
-    <!-- Scripts -->
    
+<!--BootStrap 5.2 Bundle JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    @yield('scripts')
 @endsection

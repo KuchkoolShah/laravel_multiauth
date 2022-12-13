@@ -1,21 +1,23 @@
-
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Dashboard  Apk</title>
 
 
     <script src="{{ asset('js/app.js') }}" defer></script>
- 
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
-    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
-
+    <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet">
+     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script src="{{ asset('select2/select2.full.js') }}" defer></script>
+      <script src="{{ asset('select2/select2.js') }}" defer></script>
+
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+   <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <meta name="theme-color" content="#7952b3">
 
 
@@ -34,13 +36,10 @@
         }
       }
     </style>
-
-    
-    <!-- Custom styles for this template -->
-    <link href="dashboard.css" rel="stylesheet">
   </head>
   <body onload="preLoaderHandler()">
      @include('sweetalert::alert')
+
 <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="{{ url('/') }}"> {{ config('app.name', 'Laravel') }}</a>
   <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +104,42 @@
              Ajax-crud
             </a>
           </li>
-        
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('user.index')}}">
+              <span data-feather="file"></span>
+             User-crud
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('country.index')}}">
+              <span data-feather="file"></span>
+             Country
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('state.index')}}">
+              <span data-feather="file"></span>
+             state
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('city.index')}}">
+              <span data-feather="file"></span>
+             city
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('profile.index')}}">
+              <span data-feather="file"></span>
+             profile
+            </a>
+          </li>
+           <li class="nav-item">
+            <a class="nav-link" href="{{route('category.index')}}">
+              <span data-feather="file"></span>
+             category
+            </a>
+          </li>
         
         </ul>
 
@@ -128,14 +162,10 @@
     </nav>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+    @include('message')
        @yield('content')
     </main>
   </div>
 </div>
-
-
-    <script src="/docs/5.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-
-      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="dashboard.js"></script>
-  </body>
+ </body>
 </html>

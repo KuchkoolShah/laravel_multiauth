@@ -19,6 +19,11 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
+        'editor' => [
+            'driver'=>'session',
+            'provider' => 'editors',
+ 
+        ],
 
         'api' => [
             'driver' => 'token',
@@ -36,6 +41,10 @@ return [
         'admins' => [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
+        ],
+        'editors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Editor::class,
         ],
 
         // 'users' => [

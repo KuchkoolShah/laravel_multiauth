@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use Illuminate\Support\Facades\Validator;
 class StudentController extends Controller
 {
     /**
@@ -22,9 +23,29 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+      public function fetchstudent()
+    {
+        $students=Student::all();
+        //dd($students);
+        return response()->json([
+            'students'=>$students,
+        ]);
+    }
     public function create()
     {
-        $validator = Validator::make($request->all(), [
+        
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+       $validator = Validator::make($request->all(), [
             'name'=> 'required|max:191',
             'course'=>'required|max:191',
             'email'=>'required|email|max:191',
@@ -51,17 +72,6 @@ class StudentController extends Controller
                 'message'=>'Student Added Successfully.'
             ]);
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -106,6 +116,22 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        if($student)
+        {
+            $student->delete();
+            return response()->json([
+                'status'=>200,
+                'message'=>'Student Deleted Successfully.'
+            ]);
+        }
+        else
+        {
+            return response()->json([
+                'status'=>404,
+                'message'=>'No Student Found.'
+            ]);
+        }
     }
+
 }
