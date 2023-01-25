@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +18,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
- Auth::routes(['verify' => true]);
+ //Auth::routes(['verify' => true]);
 
 //Route::get('/' , [App\Http\Controllers\Auth\LoginController::class , 'showLoginForm']);
 
-Route::get('home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix'=>'admin'], function () {
         Route::group(['middleware'=>'admin.guest'], function () {
@@ -51,15 +50,15 @@ Route::group(['prefix'=>'admin'], function () {
 });
 
 
-Route::group(['prefix'=>'editor'], function () {
-    Route::group(['middleware'=>'editor.guest'], function () {
-        Route::view('login', 'editor.login')->name('editor.login');
-        Route::post('login', [App\Http\Controllers\EditorController::class,'login'])->name('editor.auth'); });
+// Route::group(['prefix'=>'editor'], function () {
+//     Route::group(['middleware'=>'editor.guest'], function () {
+//         Route::view('login', 'editor.login')->name('editor.login');
+//         Route::post('login', [App\Http\Controllers\EditorController::class,'login'])->name('editor.auth'); });
 
-    Route::group(['middleware'=>'editor.auth'], function () {
-    Route::view('editoring', 'editor.home')->name('admin.home');
-    });
-});
+//     Route::group(['middleware'=>'editor.auth'], function () {
+//     Route::view('editoring', 'editor.home')->name('admin.home');
+//     });
+// });
 
 // Route::namespace("editor")->prefix('editor')->group(function(){
 // 	//Route::get('/', [App\Http\Controllers\ApkController::class,'index'])->name('editor.home');
@@ -77,3 +76,7 @@ Route::group(['prefix'=>'editor'], function () {
 
  //Route::get('/', [App\Http\Controllers\ApkController::class, 'apk_index']);
 //Route::Put('/apk/increment_count/{id}', [App\Http\Controllers\ApkController::class, 'increment_count'])->name('apk.countstoreCount');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

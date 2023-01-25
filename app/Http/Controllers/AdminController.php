@@ -11,16 +11,16 @@ class AdminController extends Controller
 {
     use AuthenticatesUsers;
 
-    // public function login(Request $request)
-    // {
-    //     $credentials = $request->only('email', 'password');
-    //     if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
-    //         $user = Admin::where('email', $request->email)->first();
-    //         Auth::guard('admin')->login($user);
-    //         return redirect()->route('admin.home');
-    //     }
-    //     return redirect()->route('admin.login')->with('status', 'Failed To Process Login');
-    // }
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        if (Auth::guard('admin')->attempt($credentials, $request->remember)) {
+            $user = Admin::where('email', $request->email)->first();
+            Auth::guard('admin')->login($user);
+            return redirect()->route('admin.home');
+        }
+        return redirect()->route('admin.login')->with('status', 'Failed To Process Login');
+    }
         /**
      * The user has been authenticated.
      *

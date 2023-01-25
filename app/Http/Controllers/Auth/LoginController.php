@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Auth;
 
 class LoginController extends Controller
 {
@@ -35,39 +33,8 @@ class LoginController extends Controller
      *
      * @return void
      */
-    // public function __construct()
-    // {
-    //     $this->middleware('guest')->except('logout');
-    // }
-    public function logout(Request $request)
+    public function __construct()
     {
-        $this->guard()->logout();
-
-        if ($response = $this->loggedOut($request)) {
-            return $response;
-        }
-
-        return $request->wantsJson()
-        ? new JsonResponse([], 204)
-        : redirect('/');
-    }
-   /**
-     * The user has logged out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return mixed
-     */
-    protected function loggedOut(Request $request)
-    {
-        return redirect()->route('login');
-    }
-        /**
-     * Get the guard to be used during authentication.
-     *
-     * @return \Illuminate\Contracts\Auth\StatefulGuard
-     */
-    protected function guard()
-    {
-        return Auth::guard('web');
+        $this->middleware('guest')->except('logout');
     }
 }

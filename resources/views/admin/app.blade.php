@@ -5,15 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Dashboard  Apk</title>
-
-
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <link href="{{ asset('select2/select2.min.css') }}" rel="stylesheet">
-     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('select2/css/select2.css') }}" rel="stylesheet">
+    <link href="{{ asset('select2/css/select2.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
-     <script src="{{ asset('select2/select2.full.js') }}" defer></script>
-      <script src="{{ asset('select2/select2.js') }}" defer></script>
-
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
@@ -167,5 +162,8 @@
     </main>
   </div>
 </div>
+<script src="{{ asset('js/app.js') }}" defer></script>
+<script src="{{ asset('select2/select2.full.js') }}" defer></script>
+<script src="{{ asset('select2/select2.js') }}" defer></script>
  </body>
 </html>
