@@ -29,23 +29,18 @@ Route::group(['prefix'=>'admin'], function () {
         Route::post('login', [App\Http\Controllers\AdminController::class,'login'])->name('admin.auth'); });
 
         Route::group(['middleware'=>'admin.auth'], function () {
-        Route::view('dashboard', 'admin.home')->name('admin.home');
+       
         Route::post('logout', [App\Http\Controllers\AdminController::class,'logout'])->name('admin.logout');
         Route::resource('/apk', 'ApkController');
+        Route::resource('/product', 'ProductController');
+        Route::view('dashboard', 'admin.home')->name('admin.home');
+        Route::post('/add-to-cart', [App\Http\Controllers\ProductController::class, 'addtocart']);
+        Route::get('/load-cart-data',[App\Http\Controllers\ProductController::class, 'cartloadbyajax']);
+        Route::get('/cart',[App\Http\Controllers\ProductController::class,'cart']);
+        Route::post('update-to-cart',[App\Http\Controllers\ProductController::class, 'updatetocart']);
+        Route::delete('delete-from-cart',[App\Http\Controllers\ProductController::class,'deletefromcart']);
+        Route::get('clear-cart',[App\Http\Controllers\ProductController::class,'clearcart']);
         Route::get('/apk', [App\Http\Controllers\ApkController::class, 'Show_allapk'])->name('showall.apk');
-        Route::get('/form/{id}', [App\Http\Controllers\ApkController::class, 'increment_form'])->name('apk.imcrement');
-        Route::post('/apk/increment/{id}', [App\Http\Controllers\ApkController::class, 'increment'])->name('apk.countstore');
-        Route::get('/search/', [App\Http\Controllers\ApkController::class,'search'])->name('search');
-        Route::get('profile/states/{id?}', 'Admin\ProfileController@getStates')->name('profile.states');
-        Route::get('profile/cities/{id?}', 'Admin\ProfileController@getCities')->name('profile.cities');
-        Route::resource('/student','Admin\StudentController');
-        Route::resource('/user','Admin\HomeController');
-        Route::resource('/country','Admin\CountryController');
-        Route::resource('/state','Admin\StateController');
-        Route::resource('/city','Admin\CityController');
-        Route::resource('/profile','Admin\ProfileController');
-        Route::resource('/category','Admin\CategoryController');
-        Route::get('/fetch-students',  [App\Http\Controllers\Admin\StudentController::class, 'fetchstudent']);
       });
 });
 

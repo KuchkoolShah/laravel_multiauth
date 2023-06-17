@@ -39,29 +39,33 @@ class ApkController extends Controller
     public function store(Request $request)
     {
 
+     // dd($request->all());
         $apk =  new Apk();
         if ($request->hasFile('image')) {
           $imageName =$request->image->getClientOriginalName();
           $request->image->move(public_path('image'), $imageName);
                           }
-
-                          if ($request->hasFile('apk_url')) {
-          $apkurl = $request->apk_url->getClientOriginalName();
-          $request->apk_url->move(public_path('apk_url'), $apkurl);
+                          else{
+                            $imageName = 'noimage.jpg';
                           }
+
+        //                   if ($request->hasFile('apk_url')) {
+        //   $apkurl = $request->apk_url->getClientOriginalName();
+        //   $request->apk_url->move(public_path('apk_url'), $apkurl);
+        //                   }
      
          $apk->image = $imageName ;
-         $apk->apk_url = $apkurl;
-         $apk->apk_name=$request->apk_name;
+         //$apk->apk_url = $apkurl;
+         $apk->username=$request->username;
+         $apk->title=$request->title;
+         $apk->age=$request->age;
+         $apk->address=$request->address;
          $saved = $apk->save();
-          if($saved){
-            //Alert::toast('apk add Successfully!');
-            return redirect()->route('showall.apk')->with('warning', 'Apk Add Successfully');;
-         }
-         else{
-        // Alert::toast('apk  does not  Successfully!');
-        return back();
-}
+         return response()->json([
+            'status'=>200,
+            'Stc-data'=>$apk,
+            'message'=>'Store data  Added Successfully.'
+        ]);
     }
 
     /**
@@ -96,6 +100,7 @@ class ApkController extends Controller
      */
     public function update(Request $request, $id)
     {
+     
          $apk = Apk::find($id);
           if ($request->hasFile('image')) {
             $imageName =$request->image->getClientOriginalName();

@@ -38,12 +38,13 @@ return [
     |-------------------------------------
     */
     'pusher' => [
+        'debug' => env('APP_DEBUG', false),
         'key' => env('PUSHER_APP_KEY'),
         'secret' => env('PUSHER_APP_SECRET'),
         'app_id' => env('PUSHER_APP_ID'),
         'options' => [
             'cluster' => env('PUSHER_APP_CLUSTER'),
-            'encrypted' => false,
+            'encrypted' => true,
         ],
     ],
 
@@ -66,7 +67,7 @@ return [
     |-------------------------------------
     */
     'gravatar' => [
-        'enabled' => false,
+        'enabled' => true,
         'image_size' => 200,
         'imageset' => 'identicon'
     ],
@@ -101,4 +102,18 @@ return [
         '#ff2522',
         '#9C27B0',
     ],
+    /*
+    |-------------------------------------
+    | Sounds
+    | You can enable/disable the sounds and
+    | change sound's name/path placed at
+    | `public/` directory of your app.
+    |
+    |-------------------------------------
+    */
+    'sounds' => [
+        'enabled' => true,
+        'public_path' => 'sounds/chatify',
+        'new_message' => 'new-message-sound.mp3',
+    ]
 ];

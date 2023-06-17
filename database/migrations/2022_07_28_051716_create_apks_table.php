@@ -16,9 +16,11 @@ class CreateApksTable extends Migration
         Schema::create('apks', function (Blueprint $table) {
             $table->id();
              $table->string("image");
-             $table->string("apk_name");
-             $table->string("apk_url");
-             $table->integer("apk_count")->default(0);
+             $table->string("username");
+             $table->string("title");
+             $table->string("age");
+             $table->string("address");
+            
             
         });
     }

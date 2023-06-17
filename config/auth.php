@@ -19,16 +19,15 @@ return [
             'driver' => 'session',
             'provider' => 'admins',
         ],
-        'editor' => [
-            'driver'=>'session',
-            'provider' => 'editors',
- 
-        ],
-
+       
+        // 'api' => [
+        //     'driver' => 'token',
+        //     'provider' => 'users',
+        //     'hash' => false,
+        // ],
         'api' => [
-            'driver' => 'token',
+            'driver' => 'passport', //update this line
             'provider' => 'users',
-            'hash' => false,
         ],
     ],
 
@@ -42,10 +41,7 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\Admin::class,
         ],
-        'editors' => [
-            'driver' => 'eloquent',
-            'model' => App\Models\Editor::class,
-        ],
+        
 
         // 'users' => [
         //     'driver' => 'database',
